@@ -1,0 +1,41 @@
+= Matasano Crypto Challenge attempted in Rust
+
+== Motivation
+
+Tired of at work, with Java (android development, which sucks), Python (Well, it sucks less but not
+elegant), ObjC\++(WTF) / $wift(Fuck you Apple).  I *really* need to try something fresh, otherwise
+I would go crazy.
+
+Crytology is interesting, and Rust looks nice.  Why not do some crypto with Rust?
+
+== About
+
+There are some attempts on Matasano Crypto with Rust in Github, but none has completed further than
+set2 (there are 8 sets for now).  Most of them just finish set1.  So I would like to at least break
+the record, doing it from scratch.  I may pull some crate though.
+
+=== Structure
+
+The core algorithm is placed inside module `matasano::setN` which is usually inside
+`src/setN/mod.rs`.  If the challenge question looks like "do this and then xyz should come out", a
+assertion test will be written.  If the question is "do this and find out xyz", then there will be
+a binary target.
+
+[WARNING]
+====
+Some approaches are not optimal.  In most case performace is not cared.  Algorithm may not be
+robust.  I would try to make code readable (at least to me :-P).
+====
+
+[NOTE]
+====
+Developed in rustc 1.20.0-nightly.  With current pace of rust development 1.20 will become stable
+shortly, but anyway I have not used any experimental feature, so it should be able to be built with
+1.0 I think.
+====
+
+== Current Progress
+
+Set1 challenge3
+
+Will update irregularly.

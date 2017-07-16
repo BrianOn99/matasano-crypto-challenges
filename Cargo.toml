@@ -1,0 +1,12 @@
+[package]
+name = "matasano"
+version = "0.1.0"
+authors = ["Chiu Yue Chun <chiu6700@hk>"]
+
+[dependencies]
+hex = "0.2.0"
+base64 = "0.6.0"
+
+[[bin]]
+name = "challenge3"
+path = "src/set1/challenge3.rs"
