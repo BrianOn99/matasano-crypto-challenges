@@ -36,6 +36,19 @@ shortly, but anyway I have not used any experimental feature, so it should be ab
 
 == Current Progress
 
-Set1 challenge3
+Set1 challenge4
 
 Will update irregularly.
+
+== Reflection
+
+Rust is not a easy language.  Compared to the other 2 static typed language I am
+fluent in (C and Java), you have to think 10 times harder about the types, and
+also 10 times harder to get it compiled.  But once it is compiled, it is likely
+that it runs flawlessly, and I am amazed everytime.  Though writing Rust is
+hard, it doesn't make you frustrated, because the language is well designed.  It
+is my fault which cause the compiler error.  For Java it is the opposite.
+Writing Java is quick and easy (partly due to IDE), but its easiness make the
+language restricted, in the way that we cannot express logic in an elegant, non
+trivial way.  C is always good but too raw for some tasks.  Rust give me a
+feeling of writing C, with more powerful syntax and safety net.

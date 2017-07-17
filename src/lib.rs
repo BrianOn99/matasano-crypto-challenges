@@ -8,7 +8,7 @@ use std::collections::HashMap;
  * mean robust or fast.  But good enough for distinguish text from random bytes.
  * Smaller is better.
  * Data from http://www.data-compression.com/english.html */
-pub fn score_text(text: &Vec<u8>) -> f64 {
+pub fn score_text(text: &[u8]) -> f64 {
     let ground_truth: HashMap<u8, f64> = 
         [(b' ', 0.191), (b'a', 0.0652), (b'e', 0.1041), (b'i', 0.0558), (b'b', 0.0124)]
         .iter()

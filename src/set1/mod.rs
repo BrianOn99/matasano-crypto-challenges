@@ -10,7 +10,7 @@ pub fn xor_buffers<'a>(b1: &'a [u8], b2: &'a [u8]) -> Vec<u8> {
 
 /// Assume the text is encypted by xor with single byte.  Try all 256 possible bytes and return the
 /// highest score plaintext
-pub fn decrypt_simple_xor(ciphertext: &[u8]) -> Vec<u8> {
+pub fn decrypt_simple_xor(ciphertext: &[u8]) -> (Vec<u8>, f64) {
     let mut best_plaintext: Vec<u8> = vec![];
     let mut best_score = std::f64::MAX;
     for key in 0u8..std::u8::MAX {
@@ -22,5 +22,5 @@ pub fn decrypt_simple_xor(ciphertext: &[u8]) -> Vec<u8> {
         }
     }
 
-    best_plaintext
+    (best_plaintext, best_score)
 }
