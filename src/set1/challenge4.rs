@@ -46,7 +46,8 @@ impl<I> Iterator for GoodLines<I>
             Some(line) => {
                 if let Ok(line) = line {
                     let bytes = Vec::from_hex(line).expect("invalid hex");
-                    Some(matasano::set1::decrypt_simple_xor(&bytes))
+                    let (key, score) = matasano::set1::decrypt_simple_xor(&bytes);
+                    Some((matasano::set1::xor_buffers_cycle(&bytes, &[key]), score))
                 } else {
                     None
                 }
@@ -72,5 +73,6 @@ fn main() {
         .min_by(|a, b| a.1.partial_cmp(&b.1).unwrap_or(Ordering::Equal));
     let mut best_plaintext = best_line.unwrap().0;
     best_plaintext.push(b'\n');
+    println!("finish!!");
     io::stdout().write(&best_plaintext).expect("IO Error");
 }

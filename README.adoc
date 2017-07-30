@@ -2,16 +2,12 @@
 
 == Motivation
 
-Tired of at work, with Java (android development, which sucks), Python (Well, it sucks less but not
-elegant), ObjC\++(WTF) / $wift(Fuck you Apple).  I *really* need to try something fresh, otherwise
-I would go crazy.
-
 Crytology is interesting, and Rust looks nice.  Why not do some crypto with Rust?
 
 == About
 
 There are some attempts on Matasano Crypto with Rust in Github, but none has completed further than
-set2 (there are 8 sets for now).  Most of them just finish set1.  So I would like to at least break
+set3 (there are 8 sets for now).  Most of them just finish set1.  So I would like to at least break
 the record, doing it from scratch.  I may pull some crate though.
 
 === Structure
@@ -36,19 +32,44 @@ shortly, but anyway I have not used any experimental feature, so it should be ab
 
 == Current Progress
 
-Set1 challenge4
+Set1 challenge6
 
 Will update irregularly.
 
 == Reflection
 
-Rust is not a easy language.  Compared to the other 2 static typed language I am
-fluent in (C and Java), you have to think 10 times harder about the types, and
-also 10 times harder to get it compiled.  But once it is compiled, it is likely
-that it runs flawlessly, and I am amazed everytime.  Though writing Rust is
-hard, it doesn't make you frustrated, because the language is well designed.  It
-is my fault which cause the compiler error.  For Java it is the opposite.
-Writing Java is quick and easy (partly due to IDE), but its easiness make the
-language restricted, in the way that we cannot express logic in an elegant, non
-trivial way.  C is always good but too raw for some tasks.  Rust give me a
-feeling of writing C, with more powerful syntax and safety net.
+=== What's wrong with current programming ecosystem
+
+Language specific rants
+
+- Java is too simple, sometimes naive.
+- Python is not interesting.
+- JS is not consistent.
+- Haskell is not quite realworld.
+- CommonLisp I have forgot anything about it.
+- C++ to C is what lung cancer to lung.
+- Ranting ObjectiveC?  It doesn't worth it.
+- $wift the compiler is written in Cpp.  If a compiled-to-machine-code language cannot bootstrap,
+  there is something wrong.  What's worse, choosing Cpp means those people have a bad taste.
+
+Some ecosystems are fine in their specific domain
+
+- JVM is fast, when you know how to tune it.
+- Python though bored is easy to read.
+- Ruby makes high level programmer happy.
+- CommonLisp makes macro nice.
+- C is a portable assembler.
+
+But as you can see 80% of the languages are dynamically typed (rb,py,js,lisp,lua,perl).  Among
+those sstatically typed 80% are garbage collected (hs,ocaml,go,objc). Having a GC mean it is not
+good / cannot do system programming.  Rust let us have an alternative to C and C++ (Physicists: and
+Fortran?)
+
+Rust is not a easy language.  Compared to the other 2 static typed language I am fluent in (C and
+Java), you have to think 10 times harder about the types, and also 10 times harder to get it
+compiled.  But once it is compiled, it is likely that it runs flawlessly, and I am amazed
+everytime.  Though writing Rust is hard, it doesn't make you frustrated, because the language is
+well designed.  It is my fault which cause the compiler error.  For Java it is the opposite.
+Writing Java is quick and easy (partly due to IDE), but its easiness make the language restricted,
+in the way that we cannot express logic in an elegant, non trivial way.  C is always good but too
+raw for some tasks.  Rust give me a feeling of writing C, with more powerful syntax and safety net.
