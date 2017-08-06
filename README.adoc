@@ -27,12 +27,12 @@ robust.  I would try to make code readable (at least to me :-P).
 ====
 Developed in rustc 1.20.0-nightly.  With current pace of rust development 1.20 will become stable
 shortly, but anyway I have not used any experimental feature, so it should be able to be built with
-1.0 I think.
+1.18.
 ====
 
 == Current Progress
 
-Set1 challenge6
+Set1 challenge7
 
 Will update irregularly.
 
@@ -65,11 +65,21 @@ those sstatically typed 80% are garbage collected (hs,ocaml,go,objc). Having a G
 good / cannot do system programming.  Rust let us have an alternative to C and C++ (Physicists: and
 Fortran?)
 
-Rust is not a easy language.  Compared to the other 2 static typed language I am fluent in (C and
-Java), you have to think 10 times harder about the types, and also 10 times harder to get it
-compiled.  But once it is compiled, it is likely that it runs flawlessly, and I am amazed
-everytime.  Though writing Rust is hard, it doesn't make you frustrated, because the language is
-well designed.  It is my fault which cause the compiler error.  For Java it is the opposite.
-Writing Java is quick and easy (partly due to IDE), but its easiness make the language restricted,
-in the way that we cannot express logic in an elegant, non trivial way.  C is always good but too
-raw for some tasks.  Rust give me a feeling of writing C, with more powerful syntax and safety net.
+=== Amazing things in Rust
+
+1. Very small runtime.  No GC, no green thread.
+2. Very Fast
+3. Once it compiles it is likely run successfuly, unless your logic is wrong.
+4. Community is good.
+5. crates.io is better than gem, pip, way better than gradle and maven.
+6. Pattern matching, Traits.
+
+=== Annoying things in Rust
+
+Rust is not perfect.  There are a few annoying things that I not yet find a nice solution.  Maybe
+there are solution I am not aware of, maybe not.
+
+1. Syntax is simple, but sematic is very complex.
+2. No good way to abstract over mutability of referenec in a struct.
+3. Casting &[u8] as pointer to struct takes many steps, and not as intuitive as C.  The good thing
+   is at least it is possible, unlike in most other languages.

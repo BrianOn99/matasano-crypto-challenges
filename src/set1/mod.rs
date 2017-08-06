@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 #[cfg(test)]
 pub mod challenges;
 
@@ -171,7 +173,6 @@ impl<'a, T> Iterator for MatrixEachRow<'a, T> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use hex::FromHex;
 
     #[test]
     fn test_hamming_distance() {
@@ -179,10 +180,8 @@ mod test {
     }
 
     /*
-     * Find challenge5 key size will not work because both the plaintext and key are in ascii
-     * so, the xor-ed cipher text has no hamming distance pattern to expoit (strictly speaking,
-     * the 7th bit will have smaller distance, for some key.)
-     * However breaking its key by brute force some range of key size is not musch harder.
+     * Find challenge5 key size will not work because the ciphertext is too short to collect enough
+     * statistics.  However breaking its key without knowing keysize is still feasible.
     #[test]
     fn test_find_key_size() {
         let challenge5_ans = Vec::from_hex("0b3637272a2b2e63622c2e69692a23693a2a3c6324").unwrap();
@@ -190,18 +189,4 @@ mod test {
         assert_eq!(ksize, Some(3));
     }
      */
-
-    #[test]
-    fn test_transpose() {
-        let data: [u32; 6] = [1,2,3,4,5,6];
-        let orig = Matrix {
-            data: Box::new(data),
-            w: 2,
-            h: 3,
-        };
-        let out = orig.transpose();
-        let ans:[u32;6] = [1,3,5,2,4,6];
-        let out_data: &[u32] = &out.data;
-        assert_eq!(out_data, &ans[..]);
-    }
 }

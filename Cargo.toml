@@ -1,11 +1,12 @@
 [package]
 name = "matasano"
 version = "0.1.0"
-authors = ["Chiu Yue Chun <chiu6700@hk>"]
+authors = ["Chiu Yue Chun <chiu6700@gmail.com>"]
 
 [dependencies]
 hex = "0.2.0"
 base64 = "0.6.0"
+openssl = "0.9.15"
 
 [[bin]]
 name = "challenge3"
@@ -18,3 +19,7 @@ path = "src/set1/challenge4.rs"
 [[bin]]
 name = "challenge6"
 path = "src/set1/challenge6.rs"
+
+[[bin]]
+name = "challenge7"
+path = "src/set1/challenge7.rs"
