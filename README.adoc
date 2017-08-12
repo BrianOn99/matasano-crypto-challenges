@@ -32,7 +32,7 @@ shortly, but anyway I have not used any experimental feature, so it should be ab
 
 == Current Progress
 
-Set1 challenge7
+Set1 challenge8
 
 Will update irregularly.
 

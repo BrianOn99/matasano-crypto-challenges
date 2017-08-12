@@ -5,6 +5,7 @@ pub mod challenges;
 
 use std::{self, mem};
 use std::ops::Range;
+use std::collections::HashMap;
 
 pub fn xor_buffers_cycle<'a>(b1: &'a [u8], b2: &'a [u8]) -> Vec<u8> {
     b1.iter().zip(b2.iter().cycle())
@@ -170,6 +171,26 @@ impl<'a, T> Iterator for MatrixEachRow<'a, T> {
     }
 }
 
+pub fn is_ecb(b: &[u8], max_chunck: usize) -> bool {
+    let mut counts: HashMap<&[u8], u32> = HashMap::new();
+
+    for l in 2..(max_chunck+1) {
+        for i in (0..).map(|x| x*l).take_while(|&n| n < b.len() - l) {
+            let chunk = &b[i..i+l];
+            *counts.entry(chunk).or_insert(0) += 1
+        }
+
+        let thres_count = 2 + ((2.0 * (b.len() / l) as f64) / (256f64.powi(l as i32))).ceil() as u32;
+        for c in counts.values() {
+            if *c > thres_count { return true }
+        }
+
+        counts.clear();
+    }
+
+    return false;
+}
+
 #[cfg(test)]
 mod test {
     use super::*;
@@ -177,6 +198,11 @@ mod test {
     #[test]
     fn test_hamming_distance() {
         assert_eq!(hamming_distance(b"this is a test", b"wokka wokka!!!"), 37);
+    }
+
+    #[test]
+    fn test_find_ecb() {
+        assert_eq!(is_ecb(b"qidiopjjwiopiopwqa", 4), true);
     }
 
     /*
