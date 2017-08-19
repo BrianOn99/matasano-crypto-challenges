@@ -202,7 +202,7 @@ mod test {
 
     #[test]
     fn test_find_ecb() {
-        assert_eq!(is_ecb(b"qidiopjjwiopiopwqa", 4), true);
+        assert_eq!(is_ecb(b"qidiopjjwiopiopwqasdfiopiop", 4), true);
     }
 
     /*

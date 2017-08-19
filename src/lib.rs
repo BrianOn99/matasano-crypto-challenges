@@ -2,6 +2,7 @@ extern crate hex;
 extern crate base64;
 
 pub mod set1;
+pub mod set2;
 
 /// Adhoc way to score ascii text validity by checking class of characters.  mean robust or fast.
 /// But good enough for distinguish text from random bytes.  Smaller is better.

@@ -32,7 +32,7 @@ shortly, but anyway I have not used any experimental feature, so it should be ab
 
 == Current Progress
 
-Set1 challenge8
+Set2 challenge10
 
 Will update irregularly.
 
@@ -61,18 +61,19 @@ Some ecosystems are fine in their specific domain
 - C is a portable assembler.
 
 But as you can see 80% of the languages are dynamically typed (rb,py,js,lisp,lua,perl).  Among
-those sstatically typed 80% are garbage collected (hs,ocaml,go,objc). Having a GC mean it is not
+those statically typed 80% are garbage collected (hs,ocaml,go,objc). Having a GC mean it is not
 good / cannot do system programming.  Rust let us have an alternative to C and C++ (Physicists: and
 Fortran?)
 
-=== Amazing things in Rust
+=== Good things in Rust
 
-1. Very small runtime.  No GC, no green thread.
-2. Very Fast
-3. Once it compiles it is likely run successfuly, unless your logic is wrong.
-4. Community is good.
-5. crates.io is better than gem, pip, way better than gradle and maven.
-6. Pattern matching, Traits.
+* Very small runtime.  No GC, no green thread.
+* No class and inheritance
+* Very Fast
+* Once it compiles it is likely run successfuly, unless your logic is wrong.
+* Community is good.
+* crates.io is better than gem, pip, way better than gradle and maven.
+* Pattern matching, Traits.
 
 === Annoying things in Rust
 
