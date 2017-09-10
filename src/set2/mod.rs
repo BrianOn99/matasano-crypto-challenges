@@ -32,22 +32,9 @@ pub fn pkcs_7_remove(buf: &mut Vec<u8>) -> bool {
     }
 }
 
-pub fn ecb_decypt_appended<F>(mut f: F) -> Vec<u8> 
+fn shift_suffix<F>(mut f: F, attacker_len: usize, suffix_len: usize) -> Vec<u8> 
         where F: FnMut(&[u8]) -> Vec<u8> {
-    let p0_len = f(&[0u8; 0]).len();
-
-    let mut block_len = 0;
-    let mut suffix_len = 0;
-    for x in 1usize.. {
-        let l = f(&vec![0u8; x]).len();
-        if l != p0_len {
-            suffix_len = p0_len - x;
-            block_len = l - p0_len;
-            break;
-        }
-    }
-
-    let mut attacker: Vec<u8> = vec![0; suffix_len - (suffix_len % block_len) + block_len];
+    let mut attacker: Vec<u8> = vec![0; attacker_len];
     let attacker_len = attacker.len();
     let mut known_suffix: Vec<u8> = vec![];
 
@@ -68,6 +55,74 @@ pub fn ecb_decypt_appended<F>(mut f: F) -> Vec<u8>
     }
 
     return known_suffix;
+}
+
+// challenge 12
+pub fn ecb_decypt_appended<F>(mut f: F) -> Vec<u8> 
+        where F: FnMut(&[u8]) -> Vec<u8> {
+    let p0_len = f(&[0u8; 0]).len();
+
+    let mut block_len = 0;
+    let mut suffix_len = 0;
+    for x in 1usize.. {
+        let l = f(&vec![0u8; x]).len();
+        if l != p0_len {
+            suffix_len = p0_len - x;
+            block_len = l - p0_len;
+            break;
+        }
+    }
+
+    let attacker_len = suffix_len - (suffix_len % block_len) + block_len;
+    shift_suffix(f, attacker_len, suffix_len)
+}
+
+//challenge14
+pub fn ecb_wrapped_decypt_appended<F>(mut f: F) -> Vec<u8> 
+        where F: FnMut(&[u8]) -> Vec<u8> {
+    let p0_len = f(&[0u8; 0]).len();
+
+    /*
+     * Symbols Meaning
+     *<--pre--><--attacker_payload--><--post-->
+     *^ len:p ^^       len:k        ^^ len:z  ^,  whete p+k+o mod 16 = 0
+     *         ^     len:a        ^  ,where p+a mod 16 = 0
+     */
+    let mut block_len = 0;
+    //let mut suffix_len = 0;
+    let mut k = 0;
+    for x in 1usize.. {
+        let l = f(&vec![0u8; x]).len();
+        if l != p0_len {
+            block_len = l - p0_len;
+            k = x + l;  // +l just make k sufficiently large, not always necessary.
+            break;
+        }
+    }
+
+    let mut attacker: Vec<u8> = vec![0; k];
+    let enc_all0 = f(&attacker);
+    attacker[k-1] = 1;
+    let enc_f1 = f(&attacker);
+    // pa means p + a
+    let pa = enc_all0.iter().zip(enc_f1.iter()).position(|(a,b)| a!= b).unwrap() - 1;
+    let mut a = k - 2;  // the index to change from 0 to 1 of attacker
+
+    loop {
+        attacker[a] = 1;
+        // check if the a-th byte is at block ending boundary by diffing.  Check more than 1 byte
+        // to avoid collision.
+        if f(&attacker)[pa-1..pa+1] != enc_f1[pa-1..pa+1] {
+            break;
+        }
+        a = a - 1;
+    }
+
+    // enc_all0.len()-block_len is equivalent to p+k+z
+    let z = (enc_all0.len()-block_len) - pa - (k-a);
+    a = a+1;  // convert c-style index to length
+
+    shift_suffix(f, a, z)
 }
 
 #[cfg(test)]

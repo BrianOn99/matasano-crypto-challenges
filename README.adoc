@@ -32,55 +32,6 @@ shortly, but anyway I have not used any experimental feature, so it should be ab
 
 == Current Progress
 
-Set2 challenge10
+Set2 challenge14  (challenge13 is skipped because it is too trivial)
 
 Will update irregularly.
-
-== Reflection
-
-=== What's wrong with current programming ecosystem
-
-Language specific rants
-
-- Java is too simple, sometimes naive.
-- Python is not interesting.
-- JS is not consistent.
-- Haskell is not quite realworld.
-- CommonLisp I have forgot anything about it.
-- C++ to C is what lung cancer to lung.
-- Ranting ObjectiveC?  It doesn't worth it.
-- $wift the compiler is written in Cpp.  If a compiled-to-machine-code language cannot bootstrap,
-  there is something wrong.  What's worse, choosing Cpp means those people have a bad taste.
-
-Some ecosystems are fine in their specific domain
-
-- JVM is fast, when you know how to tune it.
-- Python though bored is easy to read.
-- Ruby makes high level programmer happy.
-- CommonLisp makes macro nice.
-- C is a portable assembler.
-
-But as you can see 80% of the languages are dynamically typed (rb,py,js,lisp,lua,perl).  Among
-those statically typed 80% are garbage collected (hs,ocaml,go,objc). Having a GC mean it is not
-good / cannot do system programming.  Rust let us have an alternative to C and C++ (Physicists: and
-Fortran?)
-
-=== Good things in Rust
-
-* Very small runtime.  No GC, no green thread.
-* No class and inheritance
-* Very Fast
-* Once it compiles it is likely run successfuly, unless your logic is wrong.
-* Community is good.
-* crates.io is better than gem, pip, way better than gradle and maven.
-* Pattern matching, Traits.
-
-=== Annoying things in Rust
-
-Rust is not perfect.  There are a few annoying things that I not yet find a nice solution.  Maybe
-there are solution I am not aware of, maybe not.
-
-1. Syntax is simple, but sematic is very complex.
-2. No good way to abstract over mutability of referenec in a struct.
-3. Casting &[u8] as pointer to struct takes many steps, and not as intuitive as C.  The good thing
-   is at least it is possible, unlike in most other languages.

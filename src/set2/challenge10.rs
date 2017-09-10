@@ -22,7 +22,7 @@ fn my_cbc(data: &[u8], key: &[u8]) -> Vec<u8> {
     // later blocks
     let mut i = 16;
     loop {
-        decrypter.update(&data[i..i+16], &mut tmp);
+        decrypter.update(&data[i..i+16], &mut tmp).unwrap();
         matasano::set1::xor_buffers_buf(&tmp, &data[i-16..i], &mut decrypted[i..i+16]);
         i += 16;
         if i > data.len() - 16 { break }
