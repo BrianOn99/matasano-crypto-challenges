@@ -28,7 +28,7 @@ fn my_cbc(data: &[u8], key: &[u8]) -> Vec<u8> {
         if i > data.len() - 16 { break }
     }
 
-    matasano::set2::pkcs_7_remove(&mut decrypted);
+    matasano::set2::pkcs_7_remove(&mut decrypted).unwrap();
     return decrypted;
 }
 

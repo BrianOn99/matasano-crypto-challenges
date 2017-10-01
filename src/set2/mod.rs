@@ -21,14 +21,24 @@ pub fn pkcs_7(buf: &mut Vec<u8>, block_len: usize) {
     }
 }
 
-pub fn pkcs_7_remove(buf: &mut Vec<u8>) -> bool {
+//challenge 10 and 15
+
+#[derive(Debug)]
+pub struct FormatError(());
+
+pub fn pkcs_7_remove(buf: &mut Vec<u8>) -> Result<(), FormatError> {
     let last_byte = buf[buf.len() - 1];
     if last_byte as usize > buf.len() {
-        return false;
+        return Err(FormatError(()));
     } else {
-        let orig_len = buf.len();
-        buf.resize(orig_len - last_byte as usize, 0);
-        return true;
+        let new_len = buf.len()- last_byte as usize;
+        for &x in &buf[new_len..buf.len()-2] {
+            if x != last_byte {
+                return Err(FormatError(()));
+            }
+        }
+        buf.resize(new_len, 0);
+        return Ok(());
     }
 }
 
@@ -171,6 +181,12 @@ YnkK".to_vec();
         let res = ecb_decypt_appended(|buf| encrypter.encrypt(buf));
         // The answer starts with "Rollin' in my", not showing the full one here as a spoiler
         assert!(res.starts_with(&b"Rollin' in my"[..]));
+    }
+
+    #[test]
+    fn test_invalid_pkcs_7_remove() {
+        let mut block = b"ICEI ICE BABY\x05\x05\x05\x05".to_vec();
+        assert!(pkcs_7_remove(&mut block).is_err());
     }
 
     #[test]
