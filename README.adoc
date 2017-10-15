@@ -25,13 +25,13 @@ robust.  I would try to make code readable (at least to me :-P).
 
 [NOTE]
 ====
-Developed in rustc 1.20.0-nightly.  With current pace of rust development 1.20 will become stable
-shortly, but anyway I have not used any experimental feature, so it should be able to be built with
-1.18.
+It should be able to be built with rustc version >= 1.18.
 ====
 
 == Current Progress
 
-Set2 challenge14  (challenge13 is skipped because it is too trivial)
+Completed challenge16  (challenge13 is skipped because it is too trivial).
+
+Working on set3.
 
 Will update irregularly.

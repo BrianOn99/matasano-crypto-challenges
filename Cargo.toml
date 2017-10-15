@@ -40,3 +40,7 @@ path = "src/set2/challenge11.rs"
 [[bin]]
 name = "challenge14"
 path = "src/set2/challenge14.rs"
+
+[[bin]]
+name = "challenge16"
+path = "src/set2/challenge16.rs"

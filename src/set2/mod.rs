@@ -1,3 +1,5 @@
+use set1;
+
 //challenge 9
 pub fn pkcs_7(buf: &mut Vec<u8>, block_len: usize) {
     assert!(block_len < 256);
@@ -133,6 +135,25 @@ pub fn ecb_wrapped_decypt_appended<F>(mut f: F) -> Vec<u8>
     a = a+1;  // convert c-style index to length
 
     shift_suffix(f, a, z)
+}
+
+//challenge16, 128 bits block size is asumed
+pub fn cbc_flip(ciphertext: &mut [u8], plaintext: &[u8], desired: &[u8]) {
+    assert!(ciphertext.len() >= 32 && plaintext.len() >= 32);
+    assert!(desired.len() == 16);
+    // Need to xor 3 buffers togeether and then safe it into first block of ciphertext.
+    // It is easier to allocate a tmp
+    // let tmp = vec![0; 16];
+    // xor to there first and then xor again to the first block.
+    // But good C programmer will not do this.  We will take the first block as tmp.
+    // However it means borrow it twice, one as mut.  That is unsafe in rust.
+    // But think about it this operation is actually valid operation.
+    // So we should not be afraid of `unsafe {}`
+    unsafe {
+        let block: *mut [u8] = &mut ciphertext[0..16];
+        set1::xor_buffers_buf(&ciphertext[0..16], &plaintext[16..32], &mut *block);
+        set1::xor_buffers_buf(&ciphertext[0..16], &desired[..], &mut *block);
+    }
 }
 
 #[cfg(test)]
