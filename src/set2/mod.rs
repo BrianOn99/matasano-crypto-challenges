@@ -30,11 +30,11 @@ pub struct FormatError(());
 
 pub fn pkcs_7_remove(buf: &mut Vec<u8>) -> Result<(), FormatError> {
     let last_byte = buf[buf.len() - 1];
-    if last_byte as usize > buf.len() {
+    if last_byte as usize > buf.len() || last_byte == 0 {
         return Err(FormatError(()));
     } else {
-        let new_len = buf.len()- last_byte as usize;
-        for &x in &buf[new_len..buf.len()-2] {
+        let new_len = buf.len() - last_byte as usize;
+        for &x in &buf[new_len..buf.len()-1] {
             if x != last_byte {
                 return Err(FormatError(()));
             }
@@ -141,10 +141,10 @@ pub fn ecb_wrapped_decypt_appended<F>(mut f: F) -> Vec<u8>
 pub fn cbc_flip(ciphertext: &mut [u8], plaintext: &[u8], desired: &[u8]) {
     assert!(ciphertext.len() >= 32 && plaintext.len() >= 32);
     assert!(desired.len() == 16);
-    // Need to xor 3 buffers togeether and then safe it into first block of ciphertext.
+    // Need to xor 3 buffers together and then save it into first block of ciphertext.
     // It is easier to allocate a tmp
     // let tmp = vec![0; 16];
-    // xor to there first and then xor again to the first block.
+    // xor into tmp first and then xor again to the first block.
     // But good C programmer will not do this.  We will take the first block as tmp.
     // However it means borrow it twice, one as mut.  That is unsafe in rust.
     // But think about it this operation is actually valid operation.
