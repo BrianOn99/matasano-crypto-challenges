@@ -1,4 +1,4 @@
-= Matasano Crypto Challenge attempted in Rust
+= Matasano Crypto Challenge personal attempt
 
 == Motivation
 

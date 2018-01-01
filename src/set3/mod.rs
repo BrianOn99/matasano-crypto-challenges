@@ -2,7 +2,7 @@ use set2;
 use set1;
 
 struct CipherInfo<'a> {
-    f: &'a mut FnMut(&[u8]) -> Result<(), set2::FormatError>,
+    f: &'a Fn(&[u8]) -> Result<(), set2::FormatError>,
     ciphertext: &'a [u8],
     block_size: usize
 }
@@ -17,7 +17,7 @@ fn prepare_attack(ciphertext: &mut [u8], block_size: usize, pad_len: usize) {
     }
 }
 
-fn attack_1_block(info: &mut CipherInfo, i: usize, result: &mut [u8]) {
+fn attack_1_block(info: &CipherInfo, i: usize, result: &mut [u8]) {
     let mut dirty_copy = info.ciphertext[i..i+info.block_size*2].to_vec();
 
     // Set the second last byte of first block sth. different, to destroy the original padding
@@ -30,7 +30,7 @@ fn attack_1_block(info: &mut CipherInfo, i: usize, result: &mut [u8]) {
         prepare_attack(&mut dirty_copy, info.block_size, info.block_size-k-1);
         for x in 0..256u16 {
             dirty_copy[k] = x as u8;
-            if (*info.f)(&dirty_copy).is_ok() {
+            if (info.f)(&dirty_copy).is_ok() {
                 break;
             }
         }
@@ -48,13 +48,13 @@ fn attack_1_block(info: &mut CipherInfo, i: usize, result: &mut [u8]) {
                           result);
 }
 
-pub fn cbc_padding_oracle<F>(ciphertext: &[u8], mut f: F) -> Vec<u8>
-        where F: FnMut(&[u8]) -> Result<(), set2::FormatError> {
+pub fn cbc_padding_oracle<F>(ciphertext: &[u8], f: F) -> Vec<u8>
+        where F: Fn(&[u8]) -> Result<(), set2::FormatError> {
     // The requirement in challenge 17 also decrypts the 1st block, but it requires the iv.  It is
     // not reasonable in realworld so not implemented here.
     let block_size: usize = 16;
     let mut info = CipherInfo {
-        f: &mut f,
+        f: &f,
         ciphertext: ciphertext,
         block_size: 16
     };
