@@ -30,7 +30,7 @@ It should be able to be built with rustc stable channel.
 
 == Current Progress
 
-Completed challenge17  (challenge13 is skipped because it is too trivial).
+Completed challenge18  (challenge13 is skipped because it is too trivial).
 
 Working on set3.
 

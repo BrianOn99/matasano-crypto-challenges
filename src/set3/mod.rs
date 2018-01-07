@@ -1,3 +1,4 @@
+use openssl::symm::{encrypt, Cipher};
 use set2;
 use set1;
 
@@ -70,4 +71,34 @@ pub fn cbc_padding_oracle<F>(ciphertext: &[u8], f: F) -> Vec<u8>
 
     set2::pkcs_7_remove(&mut result).unwrap();
     return result;
+}
+
+pub fn my_ctr(text: &[u8], key: &[u8], nonce: &[u8]) -> Vec<u8> {
+    // first 64 bits is nonce, second 64 bits is counter
+    let mut ciphing_text = vec![0; 16];
+    ciphing_text[0..16].copy_from_slice(nonce);
+
+    let mut out = vec![0; text.len()];
+
+    let mut i = 0;
+    let block_count: usize = text.len() / 16;
+
+    while i < block_count {
+        let cipher = Cipher::aes_128_ecb();
+        let offset = i * 16;
+
+        unsafe {
+            let counter: *mut u64 = &mut ciphing_text[8] as *mut u8 as *mut u64;
+            // to_le compile to no-op in little endian machine
+            *counter = i.to_le() as u64;
+        }
+
+        let enc_counter = encrypt(cipher, key, None, &ciphing_text).unwrap();
+        set1::xor_buffers_buf(&enc_counter,
+                              &text[offset..offset+16],
+                              &mut out[offset..offset+16]);
+        i += 1;
+    }
+
+    out
 }

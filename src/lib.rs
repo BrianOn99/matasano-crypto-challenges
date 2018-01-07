@@ -1,3 +1,4 @@
+extern crate openssl;
 extern crate hex;
 extern crate base64;
 
